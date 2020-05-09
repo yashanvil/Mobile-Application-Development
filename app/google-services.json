@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "856612637106",
+    "firebase_url": "https://impala-11544.firebaseio.com",
+    "project_id": "impala-11544",
+    "storage_bucket": "impala-11544.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856612637106:android:5513ab501f9a7b4de9fcab",
+        "android_client_info": {
+          "package_name": "uni.leeds.comp3222"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "856612637106-iqculjj8q9klv887kns2fs9qc62edn2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uni.leeds.comp3222",
+            "certificate_hash": "382206792e884a0aba1eeda49b70b4196b069c87"
+          }
+        },
+        {
+          "client_id": "856612637106-2r4e5kj7jb5iutdgi6s91u3rncnmj36q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDhfYaDUNS_Mok13ZCZMazobRXCnke4Kc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "856612637106-2r4e5kj7jb5iutdgi6s91u3rncnmj36q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
