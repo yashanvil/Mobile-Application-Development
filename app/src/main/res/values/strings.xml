@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">impala</string>
     <string name="login">Login</string>
+    <string name="sign_in_button_label">Sign In</string>
+    <string name="sign_out_button_label">Sign Out</string>
+    <string name="failed_login_status">You failed to sign in</string>
+    <string name="not_signed_in_status">You are not logged in</string>
+    <string name="signed_in_status">\"You are logged in as: \"</string>
 </resources>
