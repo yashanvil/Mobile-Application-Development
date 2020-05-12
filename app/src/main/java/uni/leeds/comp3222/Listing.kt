@@ -3,7 +3,7 @@ package uni.leeds.comp3222
 /*
  * Data class for adding and retrieving Listings
  * Stores:
- *      Poster id, which links back to the id of the user who created the listing.
+ *      Seller Id, which links back to the id of the user who created the listing.
  *      Item name
  *      Item short description
  *      Item photo (link to its location)
@@ -14,7 +14,7 @@ package uni.leeds.comp3222
  */
 
 data class Listing (
-    var posterID : String,
+    var sellerId : String,
     var itemName : String,
     var shortDesc : String,
     var itemPhoto : String,
