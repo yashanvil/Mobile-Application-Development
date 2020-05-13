@@ -13,7 +13,7 @@ package uni.leeds.comp3222
  * Each listing is attached to the user who posted it.
  */
 
-class Listing (
+data class Listing (
     val sellerId : String,
     val sellerEmail : String,
     var itemName : String,
