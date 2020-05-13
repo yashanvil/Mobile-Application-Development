@@ -13,8 +13,9 @@ package uni.leeds.comp3222
  * Each listing is attached to the user who posted it.
  */
 
-data class Listing (
-    var sellerId : String,
+class Listing (
+    val sellerId : String,
+    val sellerEmail : String,
     var itemName : String,
     var shortDesc : String,
     var itemPhoto : String,
