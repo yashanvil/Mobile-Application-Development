@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.ProductName">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.BasicText">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppTheme.ProductPrice">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTheme.Header">
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
