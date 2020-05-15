@@ -1,9 +1,11 @@
 package uni.leeds.comp3222
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
 import uni.leeds.recycler.SearchAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 
@@ -16,60 +18,42 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var adapter: SearchAdapter
 
+    private lateinit var firestore : FirebaseFirestore
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        firestore = FirebaseFirestore.getInstance()
+
         linearLayoutManager = LinearLayoutManager(this)
         searchResultsList.layoutManager = linearLayoutManager
 
-        val listings = loadMockListings()
         adapter = SearchAdapter(listings)
 
         searchResultsList.adapter = adapter
 
+        loadListings()
+
+
     }
 
-    private fun loadMockListings(): ArrayList<Listing>{
-        val itemList = arrayListOf<Listing>()
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
-        itemList.add(mockListing("Russell Hobbs", "Make an impression every morning with perfect toast every time from the "))
-        itemList.add(mockListing("Digital Solo Microwave", "Packed with functionality and housed within contemporary white marble and rose gold accents,"))
-        itemList.add(mockListing("Sharp 55-inch 4K UHD HDR", "Enhance your viewing experience with the 4T-C55BL3KF2AB, 55-inch 4K UHD HDR Android TV."))
+    private fun loadListings() {
+        firestore.collection("listings").get()
+            .addOnSuccessListener { documents  ->
+                for (document in documents) {
+                    val listing = document.toObject(Listing::class.java)
+                    listings.add(listing)
+                    adapter.notifyItemChanged(listings.size - 1)
+                }
 
-        return itemList
+
+            }
+            .addOnFailureListener { exception ->
+                //TODO handle failure to load data
+            }
+
+
     }
 
-    private fun mockListing(itemName:String, shortDesc:String): Listing {
-        val listing = Listing()
-        listing.itemName = itemName
-        listing.shortDesc = shortDesc
-        return listing
-    }
 }
