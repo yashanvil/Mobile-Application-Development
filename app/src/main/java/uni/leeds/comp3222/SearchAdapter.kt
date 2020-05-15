@@ -3,7 +3,9 @@ package uni.leeds.recycler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.listing_item_row.view.*
 import uni.leeds.comp3222.Listing
 import uni.leeds.comp3222.R
@@ -45,6 +47,11 @@ class SearchAdapter(private val listings: ArrayList<Listing>):
 
         fun bindListing(listing: Listing) {
             this.listing = listing
+
+            Glide.with(view.itemImage.getContext())
+                .load(listing.itemPhoto)
+                .centerCrop()
+                .into(view.itemImage)
 
             view.itemTitle.text = listing.itemName
             view.itemDescription.text = listing.shortDesc
