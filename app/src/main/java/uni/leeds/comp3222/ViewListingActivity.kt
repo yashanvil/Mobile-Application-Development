@@ -16,52 +16,41 @@ import com.google.firebase.firestore.FirebaseFirestore
 class ViewListingActivity : AppCompatActivity() {
 
     val TAG : String = "VIEW LISTING ACTIVITY"
-    private lateinit var firestore : FirebaseFirestore
-    private lateinit var listingRef : DocumentReference
-    private lateinit var listingSnapshot: DocumentSnapshot
+
+    private lateinit var listing: Listing
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_listing)
 
         // Get the passed-in listingId from the extras
-        val listingId: String? = getIntent().getExtras()?.getString("ListingId")
+        val parcelListing:Listing? = intent.getParcelableExtra<Listing>("ListingToLoad")
 
-        if (listingId != null)
+        if (parcelListing != null)
         {
-            // Initialise the Firestore database reference.
-            firestore = FirebaseFirestore.getInstance()
-
-            // Get a reference to the listing using the passed-in listingId.
-            listingRef = listingId?.let { firestore.collection("listings").document(it) }!!
-
-            // Collect the listing, store it in a documentSnapshot, populate the UI with the listing info.
-            val listRef = firestore.collection("listings").document(listingId)
-            listRef.get().addOnSuccessListener{ documentSnapshot ->
-                listingSnapshot = documentSnapshot
-                onListingLoaded()
-            }
+            listing = parcelListing
+            onListingLoaded(listing)
         } else {
             throw IllegalArgumentException("A valid listing Id must be passed before a listing can be viewed.")
         }
     }
 
-    private fun onListingLoaded(){
+    private fun onListingLoaded(listing: Listing){
         // Initialise all the UI elements.
         val itemName: TextView = findViewById(R.id.itemName)
         val shortDesc: TextView = findViewById(R.id.shortDesc)
         val longDesc: TextView = findViewById(R.id.longDesc)
         val itemCost: TextView = findViewById(R.id.itemCost)
 
-        itemName.text = listingSnapshot.get("itemName").toString()
-        shortDesc.text = listingSnapshot.get("shortDesc").toString()
-        longDesc.text = listingSnapshot.get("longDesc").toString()
-        itemCost.text = listingSnapshot.get("cost").toString()
+        itemName.text = listing.itemName
+        shortDesc.text = listing.shortDesc
+        longDesc.text = listing.longDesc
+        itemCost.text = listing.cost.toString()
 
         // Set and load the image from the url using glide.
         val itemPhoto: ImageView = findViewById(R.id.photo)
         Glide.with(itemPhoto.getContext())
-            .load(listingSnapshot.get("itemPhoto").toString())
+            .load(listing.itemPhoto)
             .into(itemPhoto)
 
         // Do not reveal the UI until the listing has loaded
@@ -72,8 +61,8 @@ class ViewListingActivity : AppCompatActivity() {
     fun openEmailApp(view: View){
 
         // Acquiring the seller email and item name from the listing snapshot.
-        val recipient: Array<String> = arrayOf(listingSnapshot.get("sellerEmail").toString())
-        val itemName = listingSnapshot.get("itemName").toString()
+        val recipient: Array<String> = arrayOf(listing.sellerEmail)
+        val itemName = listing.itemName
 
         // Preparing the intent to open an email application of the user's choosing
         val intent = Intent(Intent.ACTION_SEND).apply {

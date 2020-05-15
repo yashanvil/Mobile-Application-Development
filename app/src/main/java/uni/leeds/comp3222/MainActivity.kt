@@ -31,11 +31,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun openViewListing(view: View){
-        val intent = Intent(this, ViewListingActivity::class.java)
-
-        // Normally you'd want this to dynamically grab the id of the listing the user pressed, but this is just quick and dirty for testing.
-        intent.putExtra("ListingId", "jgvsh4wwCOArD6CS2Jio")
-        startActivity(intent)
-    }
 }

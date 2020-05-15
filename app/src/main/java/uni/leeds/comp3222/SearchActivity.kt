@@ -34,8 +34,6 @@ class SearchActivity : AppCompatActivity() {
         searchResultsList.adapter = adapter
 
         loadListings()
-
-
     }
 
     private fun loadListings() {
