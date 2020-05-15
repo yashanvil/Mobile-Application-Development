@@ -12,11 +12,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.openLogin)
-            button.setOnClickListener{
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-            }
+        val loginButton = findViewById<Button>(R.id.openLogin)
+        loginButton.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        val searchButton = findViewById<Button>(R.id.openSearch)
+        searchButton.setOnClickListener{
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
+
+        val addListing = findViewById<Button>(R.id.addListing)
+        addListing.setOnClickListener{
+            val intent = Intent(this, BuySellActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun openViewListing(view: View){

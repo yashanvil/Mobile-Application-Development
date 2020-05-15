@@ -14,10 +14,13 @@ package uni.leeds.comp3222
  */
 
 data class Listing (
-    val sellerId : String,
+    //val sellerId : String,
     val sellerEmail : String,
     var itemName : String,
     var shortDesc : String,
     var itemPhoto : String,
     var cost : Float,
     var longDesc : String )
+{
+    constructor():this("", "", "", "", 0.0f, "")
+}

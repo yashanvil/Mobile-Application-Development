@@ -10,4 +10,5 @@
     <string name="about_item">About The Item</string>
     <string name="contact_seller_button">Contact Seller</string>
     <string name="price_string">Price: \u0020</string>
+    <string name="perform_search">Load Listings</string>
 </resources>
