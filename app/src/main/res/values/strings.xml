@@ -15,4 +15,6 @@
     <string name="search_hint">Search</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="algolia_app_id">L61A8UP6EM</string>
+    <string name="algolia_search_api_key">f3ced0b4cc4b57d69e50bfb89740b658</string>
 </resources>
