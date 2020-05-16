@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.buysell.*
 import java.io.IOException
 import java.util.*
 
-class BuySellActivity : AppCompatActivity() {
+class BuySellActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private val PICK_IMAGE_REQUEST = 44
     var filePath: Uri? = null
@@ -27,7 +27,16 @@ class BuySellActivity : AppCompatActivity() {
     val TAG: String = "Seller Information"
     private lateinit var firestore: FirebaseFirestore
 
+//Spinner initializations
+    private var spinner: Spinner? =null
+    private var arrayAdapter:ArrayAdapter<String> ? = null
 
+    private var categoryList = arrayOf(
+        "Accessories",
+        "Electronics",
+        "Furniture",
+        "Kitchenware",
+        "Stationary")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,11 +45,38 @@ class BuySellActivity : AppCompatActivity() {
         //storage = FirebaseStorage.getInstance()
         //storageRef = FirebaseStorage.getInstance().reference
 
+        //Getting input from the spinner and converting it into String
+        spinner = findViewById(R.id.item_spinner)
+        arrayAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_spinner_item, categoryList)
+        spinner?.adapter = arrayAdapter
+        spinner?.onItemSelectedListener = this
+
         //Click to Launch the gallery
         imageButton.setOnClickListener { launchGallery()}
         save_button.setOnClickListener { savebuysell()}
     }
+//Item Selection Categories
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        Toast.makeText(
+            applicationContext, "Please select a category",
+            Toast.LENGTH_SHORT)
+        .show()
+        }
 
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        Toast.makeText(
+            applicationContext,
+            " " + spinner?.selectedItem.toString(),
+            Toast.LENGTH_LONG
+        ).show()
+
+    }
+
+    //trial for spinner
+    fun spinnerValue(): String{
+        val item_category = spinner?.selectedItem.toString()
+        return item_category
+    }
 
     private fun launchGallery() {
         val intent = Intent()
@@ -96,8 +132,10 @@ class BuySellActivity : AppCompatActivity() {
         var long_dec: EditText = findViewById(R.id.long_dec)
         val longDesc = long_dec.text.toString().trim()
 
-        var item_category: EditText = findViewById(R.id.item_category)
-        val category = item_category.text.toString().trim()
+        //Trying the code for spinner: Changes needed
+        val category = spinnerValue()
+        Log.d(TAG, "Received Spinner :${category}")
+        //
 
         var price: EditText = findViewById(R.id.price)
         val cost = price.text.toString().toFloat()
