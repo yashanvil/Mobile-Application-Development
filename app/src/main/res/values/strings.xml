@@ -13,4 +13,6 @@
     <string name="perform_search">Load Listings</string>
     <string name="app_label">Impala</string>
     <string name="search_hint">Search</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

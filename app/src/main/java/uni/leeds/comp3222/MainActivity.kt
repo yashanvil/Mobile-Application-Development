@@ -5,12 +5,33 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navigationView: NavigationView
+    lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Set up Menu variables
+        drawerLayout = findViewById(R.id.menu_drawer)
+        navigationView = findViewById(R.id.nav_view)
+        toolbar = findViewById(R.id.toolbar)
+
+        // Configure the toolbar
+        setSupportActionBar(toolbar)
+
+        // Configure the Drawer Menu
+        var toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
         val loginButton = findViewById<Button>(R.id.openLogin)
         loginButton.setOnClickListener{
