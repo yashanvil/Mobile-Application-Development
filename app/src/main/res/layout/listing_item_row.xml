@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="8dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/light_grey">
 
     <ImageView
         android:id="@+id/itemImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/itemTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.74" />
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:paddingRight="6dp"/>
 
     <TextView
         android:id="@+id/itemTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="1"
-        app:layout_constraintBottom_toTopOf="@+id/itemDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        android:layout_toRightOf="@+id/itemImage"
+        android:hint="Product Name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/itemDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:maxLines="5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/itemTitle"
+        android:layout_toRightOf="@+id/itemImage"
+        android:hint="This is the item description"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:paddingTop="6dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/itemImage"
+        android:background="@android:color/darker_gray" />
+</RelativeLayout>
