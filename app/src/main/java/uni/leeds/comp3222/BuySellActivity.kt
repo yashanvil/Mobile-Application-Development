@@ -244,5 +244,4 @@ private fun uploadImage() {
     }
   }
 
-
  */
