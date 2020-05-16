@@ -50,6 +50,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, BuySellActivity::class.java)
             startActivity(intent)
         }
+
+        val takePhoto = findViewById<Button>(R.id.takePhoto)
+        takePhoto.setOnClickListener{
+            val intent = Intent(this, TakePhotoActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
