@@ -15,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth
 class LoginActivity : AppCompatActivity() {
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -42,7 +41,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun launchFirebaseAuthUI() {
         val providers = arrayListOf(
-            AuthUI.IdpConfig.GoogleBuilder().build())
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
 
         // Create and launch sign-in intent
         startActivityForResult(
@@ -50,7 +50,8 @@ class LoginActivity : AppCompatActivity() {
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
                 .build(),
-            RC_SIGN_IN)
+            RC_SIGN_IN
+        )
         // [END auth_fui_create_intent]
     }
 
@@ -64,13 +65,14 @@ class LoginActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 finish()
-                startActivity(intent)
+                //startActivity(intent)
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
 
-                findViewById<TextView>(R.id.loginStatus).text = getString(R.string.failed_login_status)
+                findViewById<TextView>(R.id.loginStatus).text =
+                    getString(R.string.failed_login_status)
 
             }
         }
@@ -81,7 +83,7 @@ class LoginActivity : AppCompatActivity() {
             .signOut(this)
             .addOnCompleteListener {
                 finish()
-                startActivity(intent)
+                //startActivity(intent)
             }
     }
 
