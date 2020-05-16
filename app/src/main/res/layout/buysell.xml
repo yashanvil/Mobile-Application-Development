@@ -84,6 +84,7 @@
         android:layout_width="200dp"
         android:layout_height="53dp"
         android:layout_marginStart="104dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="107dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#009688"
@@ -93,21 +94,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     <EditText
         android:id="@+id/price"
         android:layout_width="150dp"
         android:layout_height="39dp"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginBottom="105dp"
         android:backgroundTint="#009688"
         android:ems="10"
-        android:hint="Enter selling price"
+        android:hint="Selling Price £"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/item_category"
         app:layout_constraintTop_toBottomOf="@+id/short_desc" />
@@ -134,6 +134,7 @@
         android:id="@+id/long_dec"
         android:layout_width="372dp"
         android:layout_height="62dp"
+        android:layout_marginStart="19dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:backgroundTint="#009688"
@@ -142,6 +143,7 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/short_desc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemname" />
 
     <EditText
@@ -149,7 +151,7 @@
         android:layout_width="367dp"
         android:layout_height="52dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="22dp"
         android:layout_marginBottom="18dp"
         android:backgroundTint="#009688"
         android:ems="10"
@@ -166,9 +168,9 @@
         android:layout_width="159dp"
         android:layout_height="43dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="22dp"
-        android:layout_marginBottom="101dp"
+        android:layout_marginBottom="111dp"
         android:backgroundTint="#009688"
         android:ems="10"
         android:hint="Category"
@@ -178,20 +180,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/short_desc" />
 
-    <EditText
-        android:id="@+id/item_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="125dp"
-        android:layout_marginBottom="27dp"
-        android:ems="10"
-        android:hint="temp_caption_patch"
-        android:inputType="textPersonName"
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="111dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="150dp"
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_category" />
+        app:layout_constraintTop_toBottomOf="@+id/item_category"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

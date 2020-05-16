@@ -1,33 +1,76 @@
 package uni.leeds.comp3222
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.*
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.buysell.*
+import java.io.IOException
+import java.util.*
 
+class BuySellActivity : AppCompatActivity() {
 
-class BuySellActivity: AppCompatActivity() {
+    private val PICK_IMAGE_REQUEST = 44
+    var filePath: Uri? = null
+    internal var storage: FirebaseStorage? = null
+    internal var storageRef: StorageReference? = null
 
     val TAG: String = "Seller Information"
     private lateinit var firestore: FirebaseFirestore
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.buysell)
+
+        //storage = FirebaseStorage.getInstance()
+        //storageRef = FirebaseStorage.getInstance().reference
+
+        //Click to Launch the gallery
+        imageButton.setOnClickListener { launchGallery()}
+        save_button.setOnClickListener { savebuysell()}
     }
 
-    fun saveToDB(listing: Listing) {
-        firestore.collection("sellers")
+
+    private fun launchGallery() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null && data.data != null) {
+            filePath = data.data;
+            try {
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, filePath)
+                imageButton!!.setImageBitmap(bitmap)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun saveSellerToDB(listing: Listing) {
+        firestore.collection("listings")
             .add(listing)
             .addOnSuccessListener { documentReference ->
                 Log.d(
                     TAG,
                     "Document Snapshot: ${documentReference.id}"
                 )
+
             }
             .addOnFailureListener { exception ->
                 Log.w(TAG, "Error while adding!", exception)
@@ -36,8 +79,8 @@ class BuySellActivity: AppCompatActivity() {
             }
     }
 
-    fun savebuysell(view: View) {
-
+    //Error saying savebuysell(view) not found. Maybe I'm not passing the url correctly
+    fun savebuysell() {
         var seller_id: EditText = findViewById(R.id.seller_id)
         val sellerId = seller_id.text.toString().trim()
 
@@ -53,7 +96,7 @@ class BuySellActivity: AppCompatActivity() {
         var long_dec: EditText = findViewById(R.id.long_dec)
         val longDesc = long_dec.text.toString().trim()
 
-        var item_category:EditText = findViewById(R.id.item_category)
+        var item_category: EditText = findViewById(R.id.item_category)
         val category = item_category.text.toString().trim()
 
         var price: EditText = findViewById(R.id.price)
@@ -62,30 +105,75 @@ class BuySellActivity: AppCompatActivity() {
         var short_desc: EditText = findViewById(R.id.short_desc)
         val shortDesc = short_desc.text.toString().trim()
 
-        //temperorary patch just to compile and run the code
-        var item_caption: EditText = findViewById(R.id.item_caption)
-        val itemPhoto = item_caption.text.toString().trim()
-        //Will remove the above code once the image problem will be solved
-        val listingobj = Listing(sellerId,
-            sellerEmail,
-            postCode,
-            itemName,
-            category,
-            shortDesc,
-            itemPhoto,
-            cost,
-            longDesc)
+        val imageURL= uploadImage()
+        Log.d(TAG, "Received URL :${imageURL}")
 
-        if (listingobj != null) {
+        val listing =
+            Listing(
+                sellerId,
+                sellerEmail,
+                postCode,
+                itemName,
+                category,
+                shortDesc,
+                imageURL,
+                cost,
+                longDesc
+            )
+
+        if (listing != null) {
             firestore = FirebaseFirestore.getInstance()
-            saveToDB(listingobj)
+            saveSellerToDB(listing)
             Toast.makeText(applicationContext, "User saved successfully", Toast.LENGTH_SHORT)
                 .show()
+
         } else {
             Toast.makeText(applicationContext, "Failed to save user", Toast.LENGTH_SHORT).show()
         }
     }
+
+    //To upload the image
+    private fun uploadImage(): String {
+        var temp_url = ""
+        if (filePath != null) {
+            //val imageRef = storageRef!!.child("images/*" + UUID.randomUUID().toString())
+
+            val filename = UUID.randomUUID().toString()
+            Log.d(TAG, "Uploading file  :${filename}")
+            val imageRef = FirebaseStorage.getInstance().getReference("/images/$filename")
+
+
+            val task = imageRef.putFile(filePath!!)
+                .addOnSuccessListener {
+
+                    Toast.makeText(applicationContext, "Image Uploaded", Toast.LENGTH_SHORT).show()
+                    //to obtain the url from firebase
+
+                    imageRef.downloadUrl.addOnCompleteListener {
+                        Log.d("BuySellActivity", "File Location: $it")
+                        //passing to the function savebuysell
+                        temp_url = it.toString()
+                        //savebuysell(it.toString())
+
+                    }
+                }
+                .addOnFailureListener {
+
+                    Toast.makeText(applicationContext, "Image Uploading Failed", Toast.LENGTH_SHORT)
+                        .show()
+                }
+                .addOnProgressListener { taskSnapShot ->
+                    val progress =
+                        100.0 * taskSnapShot.bytesTransferred / taskSnapShot.totalByteCount
+
+                }
+
+        }
+        return temp_url
+        Log.d(TAG, "URL: ${temp_url}")
+    }
 }
+
 
 
 //------------------------------------------------------Image Code-------------------------------------------------
