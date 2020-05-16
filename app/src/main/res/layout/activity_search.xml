@@ -6,16 +6,28 @@
     android:layout_height="match_parent"
     tools:context="uni.leeds.comp3222.SearchActivity">
 
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
+    <SearchView
+        android:id="@+id/searchField"
+        android:layout_width="250dp"
         android:layout_height="45dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Search"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/fui_auth_method_button_drawablePadding"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+    </SearchView>
+
+    <Button
+        android:id="@+id/clearResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Clear"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/searchField"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,7 +36,7 @@
         android:layout_height="0dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/searchField" />
 
 
 
