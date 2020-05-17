@@ -5,7 +5,7 @@
     <string name="sign_out_button_label">Sign Out</string>
     <string name="failed_login_status">You failed to sign in</string>
     <string name="not_signed_in_status">You are not logged in</string>
-    <string name="signed_in_status">\"You are logged in as: \"</string>
+    <string name="signed_in_status">You are logged in as: </string>
     <string name="currency_pound">£</string>
     <string name="about_item">About The Item</string>
     <string name="contact_seller_button">Contact Seller</string>
@@ -17,4 +17,31 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="algolia_app_id">L61A8UP6EM</string>
     <string name="algolia_search_api_key">f3ced0b4cc4b57d69e50bfb89740b658</string>
+    <string name="enter_the_details">Tell us about what you want to sell:</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
+    <string name="short_desc">Short Description of Item</string>
+    <string name="long_desc">A more detailed description of what you want to sell, highlighting all its features.</string>
+    <string name="category">Category:</string>
+    <string name="hint_resource">Category</string>
+    <string-array name="categories">
+        <item>Furniture</item>
+        <item>Electronics</item>
+        <item>Clothes</item>
+        <item>Text Books</item>
+        <item>Shoes</item>
+        <item>Event Tickets</item>
+        <item>Other</item>
+    </string-array>
+    <string name="title_activity_temp">TempActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="post_code">Post Code</string>
+    <string name="createListingLabel">Create</string>
 </resources>

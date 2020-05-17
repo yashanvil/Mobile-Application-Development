@@ -3,22 +3,16 @@ package uni.leeds.comp3222
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.FirebaseError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -50,6 +44,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val intent = Intent(this, BuySellActivity::class.java)
             startActivity(intent)
         }
+
+        val takePhoto = findViewById<Button>(R.id.takePhoto)
+        takePhoto.setOnClickListener {
+            val intent = Intent(this, TakePhotoActivity::class.java)
+            startActivity(intent)
+        }
+
+        val createListing = findViewById<Button>(R.id.createListing)
+        createListing.setOnClickListener {
+            val intent = Intent(this, AddListingActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun configureMenu() {

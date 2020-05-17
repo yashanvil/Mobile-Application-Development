@@ -18,15 +18,15 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Listing (
-    val sellerId : String = "",
-    val sellerEmail : String = "",
-    val postcode : String = "",
-    val itemName : String = "",
-    val category : String = "",
-    val shortDesc : String = "",
-    val itemPhoto : String = "",
-    val cost : Float = 0.0f,
-    val longDesc : String = "" ) : Parcelable
+    var sellerId : String = "",
+    var sellerEmail : String = "",
+    var postcode : String = "",
+    var itemName : String = "",
+    var category : String = "",
+    var shortDesc : String = "",
+    var itemPhoto : String = "",
+    var cost : Float = 0.0f,
+    var longDesc : String = "" ) : Parcelable
 
 
 

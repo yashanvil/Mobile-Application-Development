@@ -56,10 +56,16 @@
             android:text="Add Listing" />
 
         <Button
-            android:id="@+id/takePhoto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Take Photo" />
+        android:id="@+id/takePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo" />
+
+        <Button
+        android:id="@+id/createListing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sell Something!" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -93,22 +93,6 @@ class SearchActivity : AppCompatActivity() {
                 }
             }
         })
-
-
-        /*firestore.collection("listings")
-            .whereEqualTo("itemName", queryString)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val listing = document.toObject(Listing::class.java)
-                    listings.add(listing)
-                    adapter.notifyItemChanged(listings.size - 1)
-                }
-            }
-            .addOnFailureListener { exception ->
-                //TODO handle failure to load data
-            }*/
-
     }
 
     private fun loadListings() {
