@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Impala</string>
+    <string name="app_name">UniDeals</string>
     <string name="login">Login</string>
     <string name="sign_in_button_label">Sign In</string>
     <string name="sign_out_button_label">Sign Out</string>
@@ -11,7 +11,7 @@
     <string name="contact_seller_button">Contact Seller</string>
     <string name="price_string">Price: \u0020</string>
     <string name="perform_search">Load Listings</string>
-    <string name="app_label">Impala</string>
+    <string name="app_label">UniDeals</string>
     <string name="search_hint">Search</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
