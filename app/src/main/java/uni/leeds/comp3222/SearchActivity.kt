@@ -65,6 +65,13 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 performSearch(query)
+                if(query.length > 15) {
+                    searchTerm.text = "Search: ${query.take(13)}..."
+                } else {
+                    searchTerm.text =  "Search: ${query}"
+                }
+                searchField.visibility = View.INVISIBLE
+                searchTerm.visibility = View.VISIBLE
                 clearResults.visibility = View.VISIBLE
             }
         } else {
