@@ -21,7 +21,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_search.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -128,7 +127,8 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         } else {
             super.onBackPressed()
         }
-        addListing?.setOnClickListener {
+        val createListing = findViewById<Button>(R.id.createListing)
+        createListing?.setOnClickListener {
             val intent = Intent(this, AddListingActivity::class.java)
             startActivity(intent)
         }
