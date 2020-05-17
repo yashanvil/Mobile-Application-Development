@@ -9,7 +9,10 @@ The application offers a means for students to offer items up for sale, or to bu
 The application consists of 3 activities and makes use of a firebase backend to ensure consistent content access between the activities along with google accounts authentication to manage user sessions. 
 
 For a full breakdown of the application's functionality, visit the wiki:  
-[UniDeals Wiki](https://gitlab.com/comp3222/20/impala/-/wikis/UniDeals-Home)
+[UniDeals Wiki](https://gitlab.com/comp3222/20/impala/-/wikis/UniDeals-Home)  
+
+The application's release APK can be found here:
+[Release-APK](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EhE-CjB0vSpLpX57KdloQd4BJTHdEzLTM0b0LosoqaUcLg?e=fIEOKI)  
 
 Records of the team's meetings can be found here:  
 [Meeting Minutes](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EqFJYdrfkQdEjOe31eoliJ8BlVCbhfMCYX_1z5PqlU7JmQ?e=4Kqtte)
