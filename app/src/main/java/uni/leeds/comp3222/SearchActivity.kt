@@ -134,11 +134,6 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         } else {
             super.onBackPressed()
         }
-        val createListing = findViewById<Button>(R.id.createListing)
-        createListing?.setOnClickListener {
-            val intent = Intent(this, AddListingActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun configureMenu() {
