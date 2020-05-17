@@ -58,7 +58,7 @@ class ViewListingActivity : AppCompatActivity() {
         // Preparing the intent to open an email application of the user's choosing
         val intent = Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_EMAIL, recipient)
-            putExtra(Intent.EXTRA_SUBJECT, "Impala Listing Inquiry: $itemName")
+            putExtra(Intent.EXTRA_SUBJECT, "UniDeals Listing Inquiry: $itemName")
             type = "message/rfc822"
         }
 
