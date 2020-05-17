@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">Impala</string>
     <string name="login">Login</string>
-    <string name="sign_in_button_label">Sign In</string>
-    <string name="sign_out_button_label">Sign Out</string>
+    <string name="sign_in_button_label">Log In</string>
+    <string name="sign_out_button_label">Log Out</string>
     <string name="failed_login_status">You failed to sign in</string>
-    <string name="not_signed_in_status">You are not logged in</string>
-    <string name="signed_in_status">You are logged in as: </string>
+    <string name="not_signed_in_status">You are about to log in to UniDeals</string>
+    <string name="signed_in_status">You are about to log out as: \u0020</string>
     <string name="currency_pound">£</string>
     <string name="about_item">About The Item</string>
     <string name="contact_seller_button">Contact Seller</string>
