@@ -10,22 +10,21 @@
         android:id="@+id/loadingBar"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_centerHorizontal="true" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-                android:id="@+id/mainLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="20dp"
-                android:visibility="invisible">
+            android:id="@+id/mainLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/itemName"
@@ -37,19 +36,21 @@
             <TextView
                 android:id="@+id/shortDesc"
                 style="@style/AppTheme.BasicText"
-                android:textColor="@color/grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/grey"
                 tools:text="This is the description of the item!" />
 
             <ImageView
                 android:id="@+id/photo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Picture of the object"
-                android:scaleType="fitCenter"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                />
+                android:contentDescription="Picture of the object"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:scaleType="fitCenter" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,49 +59,45 @@
                 android:paddingBottom="10dp">
 
                 <TextView
+                    style="@style/AppTheme.BasicText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/AppTheme.BasicText"
-                    android:text="@string/price_string"
-                    />
+                    android:text="@string/price_string" />
 
                 <TextView
+                    style="@style/AppTheme.ProductPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/AppTheme.ProductPrice"
-                    android:textStyle="bold"
                     android:text="@string/currency_pound"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/itemCost"
+                    style="@style/AppTheme.ProductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    style="@style/AppTheme.ProductPrice"
-                    tools:text="20.00"
-                    />
+                    tools:text="20.00" />
             </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <TextView
                 style="@style/AppTheme.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/about_item"
-                android:paddingTop="10dp"/>
+                android:paddingTop="10dp"
+                android:text="@string/about_item" />
 
             <TextView
                 android:id="@+id/longDesc"
+                style="@style/AppTheme.BasicText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/AppTheme.BasicText"
-                android:paddingBottom="10dp"
-                />
+                android:paddingBottom="10dp" />
 
             <Button
                 android:id="@+id/contactButton"
@@ -111,6 +108,6 @@
                 android:paddingTop="20dp"
                 android:text="@string/contact_seller_button" />
 
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
