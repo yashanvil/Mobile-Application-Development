@@ -1,8 +1,8 @@
 # University deals (UniDeals)
 ## Made By Team Impala
-* Yash Mehta
-* Barry O'Driscoll
 * Maaike de Jong
+* Barry O'Driscoll
+* Yash Mehta
 
 ## Description
 The application offers a means for students to offer items up for sale, or to buy items put up for sale by others.  
