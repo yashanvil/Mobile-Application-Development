@@ -47,7 +47,7 @@
                 android:layout_height="240dp"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
-                android:contentDescription="Picture of the object"
+                android:contentDescription="@string/picture_of_the_object"
                 android:scaleType="centerInside" />
 
             <LinearLayout

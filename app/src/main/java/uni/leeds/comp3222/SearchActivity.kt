@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -58,7 +57,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchField.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
-            setIconifiedByDefault(false)
+            isIconifiedByDefault = false
         }
 
         // Verify the action and get the query
@@ -68,7 +67,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 if(query.length > 15) {
                     searchTerm.text = "Search: ${query.take(13)}..."
                 } else {
-                    searchTerm.text =  "Search: ${query}"
+                    searchTerm.text =  "Search: $query"
                 }
                 searchField.visibility = View.INVISIBLE
                 searchTerm.visibility = View.VISIBLE
@@ -86,34 +85,32 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     private fun performSearch(queryString: String) {
 
-        var client: Client = Client(
+        val client = Client(
             getString(R.string.algolia_app_id),
             getString(R.string.algolia_search_api_key)
         )
 
-        var index = client.getIndex("listings")
+        val index = client.getIndex("listings")
 
-        var query: Query = Query(queryString)
+        val query: Query = Query(queryString)
             .setAttributesToRetrieve("*")
             .setHitsPerPage(50)
 
-        index.searchAsync(query, object : CompletionHandler {
-            override fun requestCompleted(content: JSONObject?, error: AlgoliaException?) {
-                var hits: JSONArray = content!!.getJSONArray("hits")
-                for (i in 0 until hits.length()) {
-                    val hit = hits.getJSONObject(i)
+        index.searchAsync(query) { content, _ ->
+            val hits: JSONArray = content!!.getJSONArray("hits")
+            for (i in 0 until hits.length()) {
+                val hit = hits.getJSONObject(i)
 
-                    firestore.collection("listings")
-                        .document(hit.getString("objectID")).get()
-                        .addOnSuccessListener { document ->
-                            val listing = document.toObject(Listing::class.java)!!
-                            listings.add(listing)
-                            adapter.notifyItemChanged(listings.size - 1)
-                        }
+                firestore.collection("listings")
+                    .document(hit.getString("objectID")).get()
+                    .addOnSuccessListener { document ->
+                        val listing = document.toObject(Listing::class.java)!!
+                        listings.add(listing)
+                        adapter.notifyItemChanged(listings.size - 1)
+                    }
 
-                }
             }
-        })
+        }
     }
 
     private fun loadListings() {
@@ -147,7 +144,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         navigationView.setNavigationItemSelectedListener(this)
 
         // Configure the Drawer Menu
-        var toggle = ActionBarDrawerToggle(
+        val toggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
             toolbar,

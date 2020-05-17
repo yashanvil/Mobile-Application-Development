@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:title="Listings">
+        <item android:title="@string/listings">
             <menu>
                 <item
                     android:id="@+id/nav_addListing"
                     android:icon="@drawable/ic_add"
-                    android:title="Create a Listing" />
+                    android:title="@string/create_a_listing" />
             </menu>
         </item>
     </group>
 
     <group android:checkableBehavior="single">
-        <item android:title="Profile">
+        <item android:title="@string/profile">
             <menu>
                 <item
                     android:id="@+id/nav_login"
                     android:icon="@drawable/ic_login"
-                    android:title="Login" />
+                    android:title="@string/login" />
                 <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_logout"
-                    android:title="Logout" />
+                    android:title="@string/logout" />
             </menu>
         </item>
     </group>

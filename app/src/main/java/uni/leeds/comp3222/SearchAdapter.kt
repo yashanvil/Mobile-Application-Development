@@ -52,7 +52,7 @@ class SearchAdapter(private val listings: ArrayList<Listing>):
         fun bindListing(listing: Listing) {
             this.listing = listing
 
-            Glide.with(view.itemImage.getContext())
+            Glide.with(view.itemImage.context)
                 .load(listing.itemPhoto)
                 .centerCrop()
                 .into(view.itemImage)

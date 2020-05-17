@@ -21,18 +21,19 @@ import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.min
 
 class AddListingActivity : AppCompatActivity() {
 
-    val REQUEST_TAKE_PHOTO = 1
+    private val requestPhotoCode = 1
 
-    lateinit var listing: Listing
-    var user: FirebaseUser? = null
+    private lateinit var listing: Listing
+    private var user: FirebaseUser? = null
 
-    lateinit var currentPhotoPath: String
-    lateinit var firestore: FirebaseFirestore
-    lateinit var storage: FirebaseStorage
-    var photoURL: String = ""
+    private lateinit var currentPhotoPath: String
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
+    private var photoURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +51,11 @@ class AddListingActivity : AppCompatActivity() {
 
         storage = Firebase.storage
 
-        photoButton.setOnClickListener{
+        photoButton.setOnClickListener {
             dispatchTakePictureIntent()
         }
 
-        saveListingButton.setOnClickListener() {
+        saveListingButton.setOnClickListener {
             if(validateFormFilled()) {
                 buildListingObjectAndSendToFirestore()
             }
@@ -130,7 +131,7 @@ class AddListingActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+        if (requestCode == requestPhotoCode && resultCode == RESULT_OK) {
             val file = File(currentPhotoPath)
             setPic()
             uploadImageToFirestore(file)
@@ -156,7 +157,7 @@ class AddListingActivity : AppCompatActivity() {
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                    startActivityForResult(takePictureIntent, requestPhotoCode)
                 }
             }
         }
@@ -190,7 +191,7 @@ class AddListingActivity : AppCompatActivity() {
             val photoH: Int = outHeight
 
             // Determine how much to scale down the image
-            val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+            val scaleFactor: Int = min(photoW / targetW, photoH / targetH)
 
             // Decode the image file into a Bitmap sized to fill the View
             inJustDecodeBounds = false
@@ -202,13 +203,13 @@ class AddListingActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirestore(file: File) {
-        var storageRef = storage.reference
+        val storageRef = storage.reference
 
-        var imageRef = storageRef.child("images/${UUID.randomUUID().toString()}.jpg")
+        val imageRef = storageRef.child("images/${UUID.randomUUID()}.jpg")
 
-        var fileUri = Uri.fromFile(file)
+        val fileUri = Uri.fromFile(file)
 
-        var uploadTask = imageRef.putFile(fileUri)
+        val uploadTask = imageRef.putFile(fileUri)
 
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnSuccessListener {

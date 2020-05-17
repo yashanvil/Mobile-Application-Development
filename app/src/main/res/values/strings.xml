@@ -46,4 +46,13 @@
     <string name="createListingLabel">Create</string>
     <string name="take_photo">Add Photo</string>
     <string name="PhotoDescription">This is the picture of your item to sell</string>
+    <string name="item_for_sale">Item for sale</string>
+    <string name="product_name">Product Name</string>
+    <string name="this_is_the_item_description">This is the item description</string>
+    <string name="clear">Clear</string>
+    <string name="picture_of_the_object">Picture of the object</string>
+    <string name="listings">Listings</string>
+    <string name="create_a_listing">Create a Listing</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>
