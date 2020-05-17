@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -19,9 +18,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //load user object from firebase auth object
         val user = FirebaseAuth.getInstance().currentUser
         val statusText = findViewById<TextView>(R.id.loginStatus)
 
+        //check if user is signed in, show correct message and button
         if (user != null) {
             statusText.text = getString(R.string.signed_in_status) + user.email
             val signOutButton = findViewById<Button>(R.id.signOutButton)
@@ -40,6 +41,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun launchFirebaseAuthUI() {
+        //select methods of auth accepted
         val providers = arrayListOf(
             AuthUI.IdpConfig.GoogleBuilder().build()
         )
@@ -52,9 +54,9 @@ class LoginActivity : AppCompatActivity() {
                 .build(),
             RC_SIGN_IN
         )
-        // [END auth_fui_create_intent]
     }
 
+    //handle user successfully signing in or failing to sign in
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -62,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Successfully signed in
                 finish()
-                //startActivity(intent)
             } else {
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -86,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
 
     }
 

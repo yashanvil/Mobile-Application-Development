@@ -9,13 +9,10 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.algolia.search.saas.AlgoliaException
 import com.algolia.search.saas.Client
-import com.algolia.search.saas.CompletionHandler
 import com.algolia.search.saas.Query
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_search.*
 import org.json.JSONArray
-import org.json.JSONObject
 
 
 class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -41,27 +37,29 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        //initialize firestore object for retrieving item listings
         firestore = FirebaseFirestore.getInstance()
-
         linearLayoutManager = LinearLayoutManager(this)
         searchResultsList.layoutManager = linearLayoutManager
 
+        //create searchAdapter and initialise it
         adapter = SearchAdapter(listings)
-
         searchResultsList.adapter = adapter
 
+        //when user clicks clear button, restart activity
         clearResults.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
 
+        //configure SearchView
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         searchField.apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
             isIconifiedByDefault = false
         }
 
-        // Verify the action and get the query
+        //if its a search, fetch results of query otherwise load all listings
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 performSearch(query)
@@ -84,8 +82,10 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         checkLogin()
     }
 
-    private fun performSearch(queryString: String) {
 
+
+    private fun performSearch(queryString: String) {
+        //init algoria client object with api & api key
         val client = Client(
             getString(R.string.algolia_app_id),
             getString(R.string.algolia_search_api_key)
@@ -97,11 +97,12 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             .setAttributesToRetrieve("*")
             .setHitsPerPage(50)
 
+        //Send query to algoria to get search results,
         index.searchAsync(query) { content, _ ->
             val hits: JSONArray = content!!.getJSONArray("hits")
             for (i in 0 until hits.length()) {
                 val hit = hits.getJSONObject(i)
-
+                // look up listings by ID and pass to search adapter
                 firestore.collection("listings")
                     .document(hit.getString("objectID")).get()
                     .addOnSuccessListener { document ->
@@ -109,11 +110,11 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         listings.add(listing)
                         adapter.notifyItemChanged(listings.size - 1)
                     }
-
             }
         }
     }
 
+    //if no search query entered in searchView load all listings
     private fun loadListings() {
         firestore.collection("listings").get()
             .addOnSuccessListener { documents ->

@@ -13,11 +13,13 @@ class SearchAdapter(private val listings: ArrayList<Listing>):
 
     override fun getItemCount() = listings.size
 
+    //pass listing object into ListingHolder object
     override fun onBindViewHolder(holder: ListingHolder, position: Int) {
         val itemListing = listings[position]
         holder.bindListing(itemListing)
     }
 
+    //initialize view holder and inflate layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ListingHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -33,22 +35,22 @@ class SearchAdapter(private val listings: ArrayList<Listing>):
         private var view: View = v
         private var listing: Listing? = null
 
-
+        //set a click listener on view holder
         init {
             v.setOnClickListener(this)
         }
 
-
+        //handle clicks on search results
         override fun onClick(v: View) {
             val context = itemView.context
 
+            //create an intent to open view listing activity and pass listing object to it
             val intent = Intent(context, ViewListingActivity::class.java)
-
-            // Normally you'd want this to dynamically grab the id of the listing the user pressed, but this is just quick and dirty for testing.
             intent.putExtra("ListingToLoad", listing)
             context.startActivity(intent)
         }
 
+        //load data for listing object into view holder
         fun bindListing(listing: Listing) {
             this.listing = listing
 
