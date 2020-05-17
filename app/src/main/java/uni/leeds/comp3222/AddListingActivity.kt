@@ -85,7 +85,7 @@ class AddListingActivity : AppCompatActivity() {
                 startActivity(intent)
             }
     }
-
+//Validating if all the fields are filled on the form
     private fun validateFormFilled(): Boolean {
         val isFormFilled: Boolean
         when {
@@ -133,10 +133,13 @@ class AddListingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestPhotoCode && resultCode == RESULT_OK) {
             val file = File(currentPhotoPath)
+
             setPic()
+            //Call the function for getting the image URL
             uploadImageToFirestore(file)
         }
     }
+
 
     private fun dispatchTakePictureIntent() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -163,6 +166,7 @@ class AddListingActivity : AppCompatActivity() {
         }
     }
 
+    //Creating an Image File in .jpg format
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
@@ -202,6 +206,7 @@ class AddListingActivity : AppCompatActivity() {
         }
     }
 
+    //Upload the Image to Firestore in the form of URL
     private fun uploadImageToFirestore(file: File) {
         val storageRef = storage.reference
 
@@ -213,6 +218,7 @@ class AddListingActivity : AppCompatActivity() {
 
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnSuccessListener {
+        //Download the Image URL
             imageRef.downloadUrl.addOnSuccessListener { url ->
                 photoURL = url.toString()
             }
