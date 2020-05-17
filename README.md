@@ -11,6 +11,9 @@ The application consists of 3 activities and makes use of a firebase backend to 
 For a full breakdown of the application's functionality, visit the wiki:  
 [UniDeals Wiki](https://gitlab.com/comp3222/20/impala/-/wikis/UniDeals-Home)
 
+Records of the team's meetings can be found here:
+[Meeting Minutes](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EqFJYdrfkQdEjOe31eoliJ8BlVCbhfMCYX_1z5PqlU7JmQ?e=4Kqtte)
+
 ## API usage
 ### Simple API
 1. The application allows users to use the device's camera to take a picture
