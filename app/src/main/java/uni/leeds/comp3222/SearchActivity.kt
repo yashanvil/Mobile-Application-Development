@@ -126,6 +126,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
 
     // Menu Related Functions
+    // Close the menu drawer on the first back press if it is open
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
@@ -134,6 +135,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
     }
 
+    // Basic configuration of the menu's xml elements
     private fun configureMenu() {
         // Set up Menu variables
         drawerLayout = findViewById(R.id.menu_drawer)
@@ -156,6 +158,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         toggle.syncState()
     }
 
+    // Retrieve a user object from Firebase Authentication and check whether the menu needs to be updated.
     private fun checkLogin() {
         val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
 
@@ -163,6 +166,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         setUsernameInHeader(user)
     }
 
+    // Display the login or logout options depending on whether there is a logged in user or not.
     private fun changeMenuIfLoggedIn(user: FirebaseUser?) {
         val loginItem: MenuItem = navigationView.menu.findItem(R.id.nav_login)
         val logoutItem: MenuItem = navigationView.menu.findItem(R.id.nav_logout)
@@ -189,6 +193,7 @@ class SearchActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
     }
 
+    // Start the right activity based on selected options. Users that are not logged in will always be redirected to log in.
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         if (FirebaseAuth.getInstance().currentUser == null) {
