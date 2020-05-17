@@ -1,29 +1,25 @@
-package uni.leeds.recycler
+package uni.leeds.comp3222
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.listing_item_row.view.*
-import uni.leeds.comp3222.Listing
-import uni.leeds.comp3222.R
-import uni.leeds.comp3222.ViewListingActivity
 
 class SearchAdapter(private val listings: ArrayList<Listing>):
     RecyclerView.Adapter<SearchAdapter.ListingHolder>() {
 
     override fun getItemCount() = listings.size
 
-    override fun onBindViewHolder(holder: SearchAdapter.ListingHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListingHolder, position: Int) {
         val itemListing = listings[position]
         holder.bindListing(itemListing)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
-            SearchAdapter.ListingHolder {
+            ListingHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater
             .inflate(R.layout.listing_item_row, parent, false) as View
