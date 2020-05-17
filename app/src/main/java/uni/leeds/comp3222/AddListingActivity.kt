@@ -133,7 +133,9 @@ class AddListingActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == requestPhotoCode && resultCode == RESULT_OK) {
             val file = File(currentPhotoPath)
+
             setPic()
+            //Call the function for getting the image URL
             uploadImageToFirestore(file)
         }
     }
@@ -164,6 +166,7 @@ class AddListingActivity : AppCompatActivity() {
         }
     }
 
+    //Creating an Image File in .jpg format
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
@@ -215,7 +218,7 @@ class AddListingActivity : AppCompatActivity() {
 
         // Register observers to listen for when the download is done or if it fails
         uploadTask.addOnSuccessListener {
-        //Download the URL
+        //Download the Image URL
             imageRef.downloadUrl.addOnSuccessListener { url ->
                 photoURL = url.toString()
             }
