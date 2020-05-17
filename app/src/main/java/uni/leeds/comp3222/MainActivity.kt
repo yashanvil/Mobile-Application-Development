@@ -39,18 +39,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
 
-        val addListing = findViewById<Button>(R.id.addListing)
-        addListing.setOnClickListener {
-            val intent = Intent(this, BuySellActivity::class.java)
-            startActivity(intent)
-        }
-
-        val takePhoto = findViewById<Button>(R.id.takePhoto)
-        takePhoto.setOnClickListener {
-            val intent = Intent(this, TakePhotoActivity::class.java)
-            startActivity(intent)
-        }
-
         val createListing = findViewById<Button>(R.id.createListing)
         createListing.setOnClickListener {
             val intent = Intent(this, AddListingActivity::class.java)
@@ -121,9 +109,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             super.onBackPressed()
         }
 
-        val takePhoto = findViewById<Button>(R.id.takePhoto)
-        takePhoto.setOnClickListener{
-            val intent = Intent(this, TakePhotoActivity::class.java)
+        val addListingButton = findViewById<Button>(R.id.addListing)
+        addListingButton.setOnClickListener{
+            val intent = Intent(this, AddListingActivity::class.java)
             startActivity(intent)
         }
     }
@@ -146,7 +134,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             intent = when (item.itemId) {
                 R.id.nav_logout -> Intent(this, LoginActivity::class.java)
-                R.id.nav_addListing -> Intent(this, BuySellActivity::class.java)
+                R.id.nav_addListing -> Intent(this, AddListingActivity::class.java)
                 else -> {
                     return false
                 }

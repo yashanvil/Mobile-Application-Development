@@ -1,26 +1,44 @@
 package uni.leeds.comp3222
 
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_add_listing.*
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddListingActivity : AppCompatActivity() {
 
+    val REQUEST_TAKE_PHOTO = 1
+
     lateinit var listing: Listing
-    lateinit var user: FirebaseUser
-    private lateinit var firestore: FirebaseFirestore
+    var user: FirebaseUser? = null
+
+    lateinit var currentPhotoPath: String
+    lateinit var firestore: FirebaseFirestore
+    lateinit var storage: FirebaseStorage
+    var photoURL: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_listing)
 
-        user = FirebaseAuth.getInstance().currentUser!!
+        user = FirebaseAuth.getInstance().currentUser
 
         if( user == null) {
             makeToast("You need to be logged in to add a listing")
@@ -29,6 +47,12 @@ class AddListingActivity : AppCompatActivity() {
         }
 
         firestore = FirebaseFirestore.getInstance()
+
+        storage = Firebase.storage
+
+        photoButton.setOnClickListener{
+            dispatchTakePictureIntent()
+        }
 
         saveListingButton.setOnClickListener() {
             if(validateFormFilled()) {
@@ -41,8 +65,9 @@ class AddListingActivity : AppCompatActivity() {
     private fun buildListingObjectAndSendToFirestore() {
         listing = Listing()
 
-        listing.sellerId = user.uid.toString()
-        listing.sellerEmail = user.email.toString()
+        listing.sellerId = user?.uid.toString()
+        listing.sellerEmail = user?.email.toString()
+        listing.itemPhoto = photoURL
         listing.itemName = itemName.text.toString()
         listing.cost = price.text.toString().toFloat()
         listing.category = category.selectedItem.toString()
@@ -63,6 +88,10 @@ class AddListingActivity : AppCompatActivity() {
     private fun validateFormFilled(): Boolean {
         val isFormFilled: Boolean
         when {
+            (photoURL.trim().isEmpty())->{
+                makeToast("You need to add a photo.")
+                isFormFilled = false
+            }
             checkEditTextEmpty(itemName) -> {
                 makeToast("You need to add a title.")
                 isFormFilled = false
@@ -96,6 +125,97 @@ class AddListingActivity : AppCompatActivity() {
     }
 
     private fun checkEditTextEmpty(editText: EditText) : Boolean {
-        return editText.text.toString().trim().length <= 0
+        return editText.text.toString().trim().isEmpty()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            val file = File(currentPhotoPath)
+            setPic()
+            uploadImageToFirestore(file)
+        }
+    }
+
+    private fun dispatchTakePictureIntent() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            // Ensure that there's a camera activity to handle the intent
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    null
+                }
+                // Continue only if the File was successfully created
+                photoFile?.also {
+                    val photoURI: Uri = FileProvider.getUriForFile(
+                        this,
+                        "uni.leeds.comp3222.fileprovider",
+                        it
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                }
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+            "JPEG_${timeStamp}_", /* prefix */
+            ".jpg", /* suffix */
+            storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun setPic() {
+        // Get the dimensions of the View
+        val targetW: Int = imageView.width
+        val targetH: Int = imageView.height
+
+        val bmOptions = BitmapFactory.Options().apply {
+            // Get the dimensions of the bitmap
+            inJustDecodeBounds = true
+
+            val photoW: Int = outWidth
+            val photoH: Int = outHeight
+
+            // Determine how much to scale down the image
+            val scaleFactor: Int = Math.min(photoW / targetW, photoH / targetH)
+
+            // Decode the image file into a Bitmap sized to fill the View
+            inJustDecodeBounds = false
+            inSampleSize = scaleFactor
+        }
+        BitmapFactory.decodeFile(currentPhotoPath, bmOptions)?.also { bitmap ->
+            imageView.setImageBitmap(bitmap)
+        }
+    }
+
+    private fun uploadImageToFirestore(file: File) {
+        var storageRef = storage.reference
+
+        var imageRef = storageRef.child("images/${UUID.randomUUID().toString()}.jpg")
+
+        var fileUri = Uri.fromFile(file)
+
+        var uploadTask = imageRef.putFile(fileUri)
+
+        // Register observers to listen for when the download is done or if it fails
+        uploadTask.addOnSuccessListener {
+            imageRef.downloadUrl.addOnSuccessListener { url ->
+                photoURL = url.toString()
+            }
+
+        }
     }
 }

@@ -44,4 +44,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="post_code">Post Code</string>
     <string name="createListingLabel">Create</string>
+    <string name="take_photo">Add Photo</string>
+    <string name="PhotoDescription">This is the picture of your item to sell</string>
 </resources>

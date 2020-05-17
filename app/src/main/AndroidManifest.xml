@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AddListingActivity" />
-        <activity android:name=".TakePhotoActivity" />
         <activity android:name=".SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -24,7 +23,6 @@
         </activity>
         <activity android:name=".ViewListingActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".BuySellActivity"/>
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

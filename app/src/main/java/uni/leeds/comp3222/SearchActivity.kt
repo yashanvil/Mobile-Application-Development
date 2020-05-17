@@ -82,7 +82,7 @@ class SearchActivity : AppCompatActivity() {
                 for (i in 0 until hits.length()) {
                     val hit = hits.getJSONObject(i)
 
-                    var listing = firestore.collection("listings")
+                    firestore.collection("listings")
                         .document(hit.getString("objectID")).get()
                         .addOnSuccessListener { document ->
                             val listing = document.toObject(Listing::class.java)!!
@@ -103,14 +103,7 @@ class SearchActivity : AppCompatActivity() {
                     listings.add(listing)
                     adapter.notifyItemChanged(listings.size - 1)
                 }
-
-
             }
-            .addOnFailureListener { exception ->
-                //TODO handle failure to load data
-            }
-
-
     }
 
 }
