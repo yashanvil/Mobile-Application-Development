@@ -11,7 +11,7 @@ The application consists of 3 activities and makes use of a firebase backend to 
 For a full breakdown of the application's functionality, visit the wiki:  
 [UniDeals Wiki](https://gitlab.com/comp3222/20/impala/-/wikis/UniDeals-Home)  
 
-The application's release APK can be found here:  
+To work with firebase authentication, we need to add the signing cert's sha-1 to our firebase config, the app will compile and run but the authentication wont work. We can add your debug sha-1 to the config or you can use the release apk linked below:  
 [Release-APK](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EhE-CjB0vSpLpX57KdloQd4BJTHdEzLTM0b0LosoqaUcLg?e=fIEOKI)  
 
 The team's document repository can be found here:  
