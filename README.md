@@ -17,6 +17,9 @@ The application's release APK can be found here:
 Records of the team's meetings can be found here:  
 [Meeting Minutes](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EqFJYdrfkQdEjOe31eoliJ8BlVCbhfMCYX_1z5PqlU7JmQ?e=4Kqtte)
 
+Asana task tracker board:   
+[Screenshot](https://i.imgur.com/23de6wd.png)
+
 ## API usage
 ### Simple API
 1. The application allows users to use the device's camera to take a picture
