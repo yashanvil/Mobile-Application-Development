@@ -14,8 +14,8 @@ For a full breakdown of the application's functionality, visit the wiki:
 The application's release APK can be found here:  
 [Release-APK](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EhE-CjB0vSpLpX57KdloQd4BJTHdEzLTM0b0LosoqaUcLg?e=fIEOKI)  
 
-Records of the team's meetings can be found here:  
-[Meeting Minutes](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EqFJYdrfkQdEjOe31eoliJ8BlVCbhfMCYX_1z5PqlU7JmQ?e=4Kqtte)
+The team's document repository can be found here
+[Document Repository](https://leeds365-my.sharepoint.com/:f:/g/personal/sc19mald_leeds_ac_uk/EunUaTlRwItPvvRNx4kQv9AB1EQ7jbTh9TpeOk6dcDCz6g?e=BUJKP3)
 
 Asana task tracker board:   
 [Screenshot](https://i.imgur.com/23de6wd.png)
