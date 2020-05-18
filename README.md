@@ -25,7 +25,8 @@ Records of the team's meetings can be found here:
 ## Advanced API
 1. Firebase Firestore to store the listings
 2. Firebase Authentication to authenticate users, and allow logging in
-3 Firebase Storage to store images
+3. Firebase Storage to store images
+4. Algoria indexing to allow full text searching of firebase data
 
 ## Quick Activity Breakdown
 ### Add Listing Activity
